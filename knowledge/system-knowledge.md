@@ -78,7 +78,7 @@ Flujo: el tutor solicita el reintegro de un gasto veterinario (Vetify WebApp →
 
 **Bloqueo real vigente a 2026-08-21 (comentario del equipo en la épica)**: el pase a **Producción queda fuera de alcance** de estos 5 tickets — falta que el equipo Core migre datos de usuarios para poder probar primero en QA. Mientras tanto hay un **parche/interim** para que los usuarios tengan servicios auxiliares. El equipo va a abrir un ticket nuevo el sprint siguiente para dejar esto formalmente documentado. **No reportar ni asumir nada de esta migración como ya productivo** hasta confirmar ese ticket nuevo.
 
-**Trabajo de QA real pendiente**: la subtarea `IMAS-4152` ("Pruebas QA Manuales Nexus", bajo `IMAS-4124`) sigue en **Tareas Por Hacer** — es el testing manual de la fase de notas, sin arrancar todavía.
+**Trabajo de QA real, en curso (actualizado 2026-08-22)**: la subtarea `IMAS-4152` ("Pruebas QA Manuales Nexus", bajo `IMAS-4124`) ya arrancó — **5 de 11 casos ejecutados en vivo contra QA real** (alta, cierre por pago, rechazo operativo de Finanzas + rechazo definitivo de Calidad, y el escenario de fallback de catálogo). Se encontró y documentó **`BUG-015`**: el camino de rechazo directo de Calidad desde `PENDIENTE` (sin pasar por Finanzas) está bloqueado — falla con `400 BUS-009` (monto no distribuido a la línea de cobertura) y luego, ya resuelto eso, con `404 BUS-005` ("Nexus pets/refund requires clCuenta"), sin salida conocida sin pasar por el mismo pipeline que aprueba el expediente. Confirmado 2 veces de forma independiente el mismo día. Ver detalle en `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md` y `docs/user-stories/IMAS-4152-pruebas-qa-manuales-nexus.tests.md` — no filado en Jira todavía, a reportar el lunes 2026-08-24.
 
 ### Verificado contra el código real (repo GitLab `grupo-ike-arg/webapp-mascotas/reintegros-backend`, MR !103 `feat/IMAS-4104-on-develop → develop`, mergeada)
 
@@ -110,6 +110,17 @@ Auth Nexus: **un único API-KEY fijo por header, igual en los 3 ambientes** (no 
 - **Panel interno de Nexus** ("Iké Argentina (dev)" → módulo "Servicios auxiliares"): expediente `3147-1` con línea de tiempo real `Aceptado → Finalizado`, tarjeta "Cliente" mostrando literalmente `Osde/capitado (H)` y `Coordinador: Nexus-api`, tarjeta "Asistido" con DNI y tag `WEBAPP-REINTEGROS`. Confirma que el mismo caso queda trazable tanto del lado tutor/backoffice como del lado interno Nexus.
 
 **Evidencia pendiente de revisar (no visualizable con las herramientas actuales)**: `IMAS-4052` tiene 7 videos adjuntos (`.mp4`/`.mov`, validación manual QA del workaround de capitados + un bug de iOS) — quedan como referencia para quien tenga que auditar ese caso puntual, no se transcribieron acá.
+
+### ⚠️ Divergencia real entre ramas `qa` y `develop` (confirmado 2026-08-22, vía GitLab)
+
+**Nexus SÍ está operativo en el ambiente QA real** (`REINTEGROS_CORE_PROVIDER=NEXUS` activo en `.pipeline/qa.env.yml` de la rama `qa`) — pero la rama `qa` recibió su **propio track de fixes**, aplicados directo ahí (MRs `#100`-`#115`, 18-20/08), **independiente** de `develop`:
+- `#109` — agregó `contact.name` (requerido) al alta en Nexus, ausente en la versión que yo había leído de `develop`.
+- `#110` — hack temporal (`TEMP_CAPABILITY_CATALOG_POLICY_KEY`, IMAS-4143): `resolveCapabilityId` prueba primero la póliza real del cliente y si `claimsHistory` no la tiene cargada en el datalake de Nexus QA (confirmado con Core que no toda póliza real está ahí), cae a una póliza catálogo fija — el `id` de capability es dato de catálogo estable por `capabilityCode`, verificado igual en cuentas distintas. Sacar este fallback en cuanto Core confirme un endpoint de catálogo real o garantice la sincronización SISE→Nexus.
+- `#113`/`#115` — Nexus rechazaba `urlRefund`/`observaciones` vacíos en el cierre ("is not allowed to be empty", a diferencia de SISE) — confirmado con curl directo contra QA, fix probado end-to-end (200 OK).
+
+**Implicancia para QA**: `qa` y `develop` no son el mismo código hoy — cada rama tiene fixes que la otra no tiene. Si se reporta un bug, aclarar contra qué rama/ambiente se vio, no asumir que el comportamiento de `develop` (lo documentado en la sección de arriba, leído de esa rama) es idéntico al de QA real. Reconciliar ambas ramas es tarea pendiente del equipo, no bloqueante para probar hoy.
+
+Hay además una MR abierta (`#111`) con el mismo objetivo que `#113`/`#115` (ya mergeadas) — parece simplemente no cerrada, no bloquea nada.
 
 ### El servicio completo, de su propio README (`reintegros-backend`, rama `develop`)
 
