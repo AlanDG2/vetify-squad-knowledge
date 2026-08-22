@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "description": "Orden de bootstrap del agente: qué leer primero al arrancar una sesión.",
+  "bootstrapOrder": [
+    "knowledge/current-state.md",
+    "CLAUDE.md",
+    "AGENTS.md",
+    "knowledge/project-context.md"
+  ],
+  "taskContexts": {
+    "hu_authoring": [
+      "knowledge/system-knowledge.md",
+      "knowledge/known-issues.md",
+      "core/dor/dor-core.md"
+    ],
+    "knowledge_promotion": [
+      "knowledge/system-knowledge.md",
+      "knowledge/promotion-log.ndjson"
+    ]
+  }
+}

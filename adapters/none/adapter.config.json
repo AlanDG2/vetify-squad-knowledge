@@ -1,0 +1,16 @@
+{
+  "name": "none",
+  "description": "Adaptador por defecto: el proyecto funciona sin ningún gestor de tickets conectado. Todas las operaciones de la interfaz son no-ops. Desactivado desde la Fase 3 — jira ya implementa checkReadiness. Reactivar si se quiere correr sin credenciales de Jira.",
+  "active": false,
+  "operations": {
+    "fetchStory": "no-op → devuelve ''",
+    "listLinkedTests": "no-op → devuelve []",
+    "importTests": "no-op → no hay dónde importar",
+    "createDefect": "no-op → devuelve null",
+    "getDoDTicketCriteria": "no-op → devuelve ''",
+    "checkClosable": "no-op → {closable: true, missing: []}",
+    "checkReadiness": "no-op → {ready: true, missing: []}",
+    "createStoryDraft": "no-op → devuelve null",
+    "listEpicChildren": "no-op → devuelve []"
+  }
+}

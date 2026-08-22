@@ -1,0 +1,24 @@
+{
+  "name": "jira",
+  "description": "Adaptador real para Jira, completo (Fase 5). checkReadiness, fetchStory, listEpicChildren, createStoryDraft y createDefect implementados. listLinkedTests/importTests siguen no-op documentado (no hay Xray/Zephyr en este squad).",
+  "active": true,
+  "dorTicketFile": "dor-ticket.md",
+  "clientFile": "client.mjs",
+  "envVars": [
+    "JIRA_BASE_URL",
+    "JIRA_EMAIL",
+    "JIRA_API_TOKEN",
+    "JIRA_PROJECT_KEY"
+  ],
+  "operations": {
+    "checkReadiness": "real → getIssue(id) + chequea fields.parent de tipo Epic",
+    "fetchStory": "real → getIssue(id) formateado a texto (summary + estado + épica + descripción)",
+    "listEpicChildren": "real → JQL 'parent = <id>' vía /search/jql",
+    "createStoryDraft": "real → crea issuetype 'Historia de usuario', linkeable a épica. Requiere preview + OK explícito (ver update-rules.md). Loguea en sync-log.ndjson",
+    "createDefect": "real → crea issuetype 'Error' (bug real del proyecto, sin Xray), linkeable a un padre con 'Blocks'. Requiere preview + OK explícito. Loguea en sync-log.ndjson",
+    "listLinkedTests": "no-op documentado (no hay Xray/Zephyr en este squad)",
+    "importTests": "no-op documentado (no hay gestor de test-management)",
+    "getDoDTicketCriteria": "no aplica — este proyecto usa DoR, no DoD",
+    "checkClosable": "no implementado — este proyecto no hace cierre de HU, eso vive en automation"
+  }
+}
