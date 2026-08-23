@@ -42,12 +42,28 @@
 | `squad-bug-report` | Devs/no-QA | 5 | ✅ Construida |
 | `squad-task-authoring` | Devs/no-QA | 5 | ✅ Construida |
 
+### Skills de PM (46 + 4, adaptadas de `phuryn/pm-skills`, ver `.claude/skills/THIRD-PARTY-NOTICES.md`)
+
+Traídas 2026-08-23 para llenar un hueco real: hasta ese momento no había nada acá para
+descubrimiento/estrategia/ejecución de producto, solo autoría de HU + el gate de DoR. Cargan
+on-demand igual que el resto — no hace falta memorizar los 50 nombres, alcanza con saber que
+existen 5 categorías:
+
+| Categoría | Cuántas | Para qué (ejemplos) |
+|---|---|---|
+| Descubrimiento (`pm-product-discovery`) | 13 | `opportunity-solution-tree`, `brainstorm-ideas-new`, `prioritize-features` |
+| Estrategia (`pm-product-strategy`) | 12 | `product-vision`, `swot-analysis`, `value-proposition` |
+| Ejecución (`pm-execution`) | 16 | `create-prd`, `user-stories`, `retro`, `sprint-plan`, `stakeholder-map` |
+| Analítica (`pm-data-analytics`) | 3 | `ab-test-analysis`, `cohort-analysis`, `sql-queries` |
+| Auditoría de código con IA (`pm-ai-shipping`) | 2 | `intended-vs-implemented`, `shipping-artifacts` |
+| Sueltas (de otros plugins, cherry-pick) | 4 | `north-star-metric`, `customer-journey-map`, `user-personas`, `user-segmentation` |
+
 ## 👁️ Quién lee qué (para no cargar a nadie con más de lo que necesita)
 
 | Rol | Lee/usa | NO necesita |
 |---|---|---|
 | **Dev** | Los 3 prompts de `docs/_templates/` (`dev-*`) + `knowledge/system-knowledge.md` para el módulo que toca + skill `knowledge-lookup` | `automation` completo (Playwright/POMs no le sirven), `core/dor/`, skill de autoría de HU |
-| **PO/PM/SM** | `knowledge/project-context.md`, `knowledge/known-issues.md`, `knowledge/system-knowledge.md`, skill `hu-epic-feature-authoring`, `core/dor/dor-core.md` | Detalle de implementación de `automation` (tests, POMs) — si necesita evidencia de un comportamiento, pedirla a QA en vez de ir a leer el código |
+| **PO/PM/SM** | `knowledge/project-context.md`, `knowledge/known-issues.md`, `knowledge/system-knowledge.md`, skill `hu-epic-feature-authoring`, `core/dor/dor-core.md`, las skills de PM de arriba | Detalle de implementación de `automation` (tests, POMs) — si necesita evidencia de un comportamiento, pedirla a QA en vez de ir a leer el código |
 | **QA** | Todo — es quien produce y promueve el conocimiento (`scripts/promote-knowledge.mjs`) | — |
 | **Nuevo en el squad (cualquier rol)** | Ver "Soy nuevo en el squad" arriba — 3 archivos, en ese orden | Todo lo demás, hasta que su rol específico lo requiera |
 

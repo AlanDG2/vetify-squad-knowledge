@@ -60,7 +60,7 @@ node core/validate/validate-control-plane.mjs   # valida que el control-plane es
 
 ## Estado del proyecto
 
-**Fase 3 de 5 completa.** Ver el plan completo en `knowledge/decision-log.md`.
+**Las 5 fases del plan original están completas.** Ver el plan completo en `knowledge/decision-log.md`.
 
 - ✅ Fase 1 — scaffold + semilla (estructura, `knowledge/` sembrado, templates de devs movidos).
 - ✅ Fase 2 — mecanismo de nutrición (`scripts/promote-knowledge.mjs` funcionando,
@@ -79,4 +79,8 @@ node core/validate/validate-control-plane.mjs   # valida que el control-plane es
 **Las 5 fases del plan original están completas.** El proyecto es usable de punta a punta: onboarding,
 gate de DoR para HUs, mecanismo de nutrición de conocimiento desde `automation`, y reporte de
 bugs/tareas con estándar para todo el squad. Próximos pasos son de **adopción**, no de construcción:
-revisar/commitear ambos repos, decidir si se pushea a un remoto, y empezar a usarlo en HUs reales.
+decidir si se pushea a un remoto (sigue local por ahora), y empezar a usarlo en HUs reales.
+
+**Actividad de adopción, 2026-08-23**:
+- `knowledge/system-knowledge.md` nutrido con 12 de las 14 secciones de `automation/docs/conocimiento-sistema.md` (visión del producto, los 5 módulos funcionales, conceptos transversales, integración Quantum, ciclo de sprint, usuarios/datos de prueba) — quedaron afuera 2 secciones de metadata interna de QA (no aplican a todo el squad). Detalle completo en `knowledge/promotion-log.ndjson`.
+- 50 skills de PM adaptadas de `phuryn/pm-skills` (MIT) para llenar el hueco de soporte a PO/PM/SM en descubrimiento/estrategia/ejecución de producto — ver inventario en `AGENTS.md` y atribución en `.claude/skills/THIRD-PARTY-NOTICES.md`.
