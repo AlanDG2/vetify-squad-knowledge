@@ -13,7 +13,10 @@
  *   node adapters/jira/client.mjs check-readiness <KEY>
  *   node adapters/jira/client.mjs fetch-story <KEY>
  *   node adapters/jira/client.mjs list-epic-children <EPIC-KEY>
- *   node adapters/jira/client.mjs create-story-draft <PROJECT-KEY> <EPIC-KEY|-> <título>
+ *   node adapters/jira/client.mjs create-story-draft <PROJECT-KEY> <PARENT-KEY|-> <ISSUE-TYPE|-> <título>
+ *     (PARENT-KEY: épica si es una HU/Tarea de primer nivel, o una Tarea/HU si esto es una
+ *     Subtarea. ISSUE-TYPE: "-" usa el default "Historia de usuario"; pasar "Tarea" o "Subtarea"
+ *     para una actividad relacionada.)
  *   node adapters/jira/client.mjs create-defect <PARENT-KEY|-> <resumen>
  *
  * Requiere un .env propio de este repo (ver .env.example).
@@ -143,25 +146,34 @@ export async function listEpicChildren(epicId) {
 }
 
 /**
- * createStoryDraft(payload) → crea una HU real en Jira. `payload`: { projectKey, summary,
- * description, epicKey? }. SOLO invocar tras preview + OK explícito de una persona — ver
- * adapters/jira/update-rules.md. Loguea en sync-log.ndjson (éxito o error).
+ * createStoryDraft(payload) → crea un issue real en Jira (HU o una actividad relacionada colgando
+ * de ella). `payload`: { projectKey, summary, description, parentKey?, issueType? }.
+ * - `parentKey`: el padre real en Jira (`fields.parent`) — una épica si esto es una HU/Tarea de
+ *   primer nivel, o una Tarea/HU si esto es una Subtarea. Jira no distingue el mecanismo entre
+ *   "hija de épica" e "hija de tarea" — es el mismo campo, por eso `checkReadiness` ya lo trata
+ *   igual (`fields.parent`, sin importar el tipo del padre).
+ * - `issueType`: default `'Historia de usuario'`. Pasar `'Tarea'` o `'Subtarea'` (u otro issuetype
+ *   real del proyecto Jira) para crear una actividad relacionada con el tipo correcto — antes de
+ *   este cambio quedaba siempre hardcodeado a "Historia de usuario", lo cual mal-tipaba cualquier
+ *   Tarea/Subtarea creada con esta misma función.
+ * SOLO invocar tras preview + OK explícito de una persona — ver adapters/jira/update-rules.md.
+ * Loguea en sync-log.ndjson (éxito o error).
  */
-export async function createStoryDraft({ projectKey, summary, description, epicKey }) {
+export async function createStoryDraft({ projectKey, summary, description, parentKey, issueType = 'Historia de usuario' }) {
   if (!projectKey || !summary) throw new Error('createStoryDraft requiere { projectKey, summary }');
   try {
     const fields = {
       project: { key: projectKey },
       summary,
-      issuetype: { name: 'Historia de usuario' },
+      issuetype: { name: issueType },
     };
     if (description) fields.description = toDoc(description);
-    if (epicKey) fields.parent = { key: epicKey };
+    if (parentKey) fields.parent = { key: parentKey };
     const created = await jira('POST', '/issue', { fields });
-    appendSyncLog({ action: 'createStoryDraft', projectKey, epicKey: epicKey ?? null, summary, key: created.key, result: 'ok' });
+    appendSyncLog({ action: 'createStoryDraft', projectKey, parentKey: parentKey ?? null, issueType, summary, key: created.key, result: 'ok' });
     return created.key;
   } catch (e) {
-    appendSyncLog({ action: 'createStoryDraft', projectKey, epicKey: epicKey ?? null, summary, result: 'error', error: e.message });
+    appendSyncLog({ action: 'createStoryDraft', projectKey, parentKey: parentKey ?? null, issueType, summary, result: 'error', error: e.message });
     throw e;
   }
 }
@@ -217,10 +229,11 @@ if (IS_CLI) {
       console.log(`\n${epicKey} — ${children.length} hijas:`);
       for (const c of children) console.log(`  ${c.key} [${c.status}] (${c.issuetype}) ${c.summary}`);
     },
-    async 'create-story-draft'([projectKey, epicKey, ...titleParts]) {
+    async 'create-story-draft'([projectKey, parentKey, issueType, ...titleParts]) {
       const key = await createStoryDraft({
         projectKey, summary: titleParts.join(' '),
-        epicKey: epicKey === '-' ? undefined : epicKey,
+        parentKey: parentKey === '-' ? undefined : parentKey,
+        issueType: issueType && issueType !== '-' ? issueType : undefined,
       });
       console.log(`\nCreada: ${key} — ${BASE}/browse/${key}`);
     },

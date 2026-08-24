@@ -18,9 +18,11 @@ estructura para que la persona redacte bien y decida qué publicar.
    no "Horarios CDS").
 2. **Criterio de éxito explícito**: cómo se sabe que la subtarea está terminada, en una frase.
 3. **Quién la ejecuta** (rol o persona), si ya se sabe.
-4. Si el proyecto usa el adaptador `jira` con `createStoryDraft` disponible, puede crearse como
-   parte de una HU — pero **siempre con preview + OK explícito antes**, igual que cualquier
-   escritura (ver `adapters/jira/update-rules.md`).
+4. Si el proyecto usa el adaptador `jira`, la subtarea se crea con `createStoryDraft({ projectKey,
+   summary, description, parentKey, issueType: 'Tarea' })` (o `'Subtarea'` si cuelga de una Tarea en
+   vez de una épica) — **siempre con preview + OK explícito antes**, igual que cualquier escritura
+   (ver `adapters/jira/update-rules.md`). Pasar el `issueType` correcto es importante: sin
+   especificarlo, `createStoryDraft` crea por default una "Historia de usuario", no una Tarea.
 
 ## Procedimiento — comentarios de seguimiento/cierre
 

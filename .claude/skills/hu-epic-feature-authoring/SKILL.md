@@ -31,6 +31,13 @@ respuesta documentada.
    para el criterio 7 (vínculo con épica) — ver `adapters/jira/dor-ticket.md`. Si no se puede
    consultar en vivo, reportarlo como no verificado, nunca asumir que está OK.
 6. **Reportar veredicto GO/NO-GO** con el detalle de qué falta (ver Output Contract abajo).
+7. **Si el veredicto es GO y la persona quiere publicar en Jira**, seguir el guardrail de
+   `adapters/jira/update-rules.md` (preview → OK explícito → ejecutar → verificar → log) y llamar a
+   `createStoryDraft({ projectKey, summary, description, parentKey, issueType })` — sin `issueType`
+   crea una "Historia de usuario"; con `issueType: 'Tarea'`/`'Subtarea'` crea una **actividad
+   relacionada** colgando de la HU/épica (`parentKey`). Si la persona pidió la HU **y** sus
+   actividades relacionadas, mostrar el preview de **todas** antes de crear ninguna — no ir
+   creando una por una sin que la persona haya visto el conjunto completo primero.
 
 ## Reglas duras
 
