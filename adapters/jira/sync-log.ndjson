@@ -1,1 +1,2 @@
 {"timestamp":"2026-08-24T21:38:13.338Z","action":"createStoryDraft","projectKey":"TEST","parentKey":null,"issueType":"Tarea","summary":"titulo de prueba","result":"error","error":"Missing JIRA_BASE_URL, JIRA_EMAIL, or JIRA_API_TOKEN in .env"}
+{"timestamp":"2026-08-24T22:07:29.891Z","action":"addComment","key":"TEST-00000","textLength":72,"result":"error","error":"Missing JIRA_BASE_URL, JIRA_EMAIL, or JIRA_API_TOKEN in .env"}

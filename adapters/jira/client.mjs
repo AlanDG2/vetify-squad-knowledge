@@ -4,10 +4,11 @@
  * Basado en el cliente REST v3 de vetify-automation/automation/scripts/jira/jira-client.mjs
  * (duplicación chica y consciente, ver adapters/jira/README.md — no un require cross-repo).
  *
- * Toda operación que ESCRIBE en Jira (createStoryDraft, createDefect) exige que quien la invoque
- * ya haya mostrado un preview y obtenido OK explícito de una persona ANTES de correr el comando —
- * ver adapters/jira/update-rules.md. El propio hecho de invocar el comando CLI con argumentos
- * reales es esa aprobación explícita (mismo principio que automation/scripts/jira/jira-client.mjs).
+ * Toda operación que ESCRIBE en Jira (createStoryDraft, createDefect, addComment) exige que quien
+ * la invoque ya haya mostrado un preview y obtenido OK explícito de una persona ANTES de correr el
+ * comando — ver adapters/jira/update-rules.md. El propio hecho de invocar el comando CLI con
+ * argumentos reales es esa aprobación explícita (mismo principio que
+ * automation/scripts/jira/jira-client.mjs).
  *
  * Uso CLI:
  *   node adapters/jira/client.mjs check-readiness <KEY>
@@ -18,6 +19,7 @@
  *     Subtarea. ISSUE-TYPE: "-" usa el default "Historia de usuario"; pasar "Tarea" o "Subtarea"
  *     para una actividad relacionada.)
  *   node adapters/jira/client.mjs create-defect <PARENT-KEY|-> <resumen>
+ *   node adapters/jira/client.mjs add-comment <KEY> <texto>
  *
  * Requiere un .env propio de este repo (ver .env.example).
  */
@@ -208,6 +210,22 @@ export async function createDefect({ projectKey, summary, description, parentKey
   }
 }
 
+/**
+ * addComment(key, text) → publica un comentario en un issue YA EXISTENTE (para squad-task-authoring,
+ * "Procedimiento — comentarios de seguimiento/cierre"). SOLO invocar tras preview + OK explícito de
+ * una persona — ver adapters/jira/update-rules.md. Loguea en sync-log.ndjson (éxito o error).
+ */
+export async function addComment(key, text) {
+  if (!key || !text) throw new Error('addComment requiere (key, text)');
+  try {
+    await jira('POST', `/issue/${key}/comment`, { body: toDoc(text) });
+    appendSyncLog({ action: 'addComment', key, textLength: text.length, result: 'ok' });
+  } catch (e) {
+    appendSyncLog({ action: 'addComment', key, textLength: text.length, result: 'error', error: e.message });
+    throw e;
+  }
+}
+
 // ── CLI ──────────────────────────────────────────────────────────────────────
 const IS_CLI = process.argv[1] && fileURLToPath(import.meta.url).endsWith(
   process.argv[1].replace(/\\/g, '/').split('/').pop(),
@@ -245,10 +263,14 @@ if (IS_CLI) {
       });
       console.log(`\nCreado: ${key} — ${BASE}/browse/${key}`);
     },
+    async 'add-comment'([key, ...textParts]) {
+      await addComment(key, textParts.join(' '));
+      console.log(`\nComentario publicado en ${key} — ${BASE}/browse/${key}`);
+    },
   };
   const fn = commands[cmd];
   if (!fn) {
-    console.log('Uso: node adapters/jira/client.mjs <check-readiness|fetch-story|list-epic-children|create-story-draft|create-defect> ...');
+    console.log('Uso: node adapters/jira/client.mjs <check-readiness|fetch-story|list-epic-children|create-story-draft|create-defect|add-comment> ...');
     process.exit(fn ? 0 : 1);
   } else {
     fn(rest).catch((e) => { console.error('Error:', e.message); process.exit(1); });

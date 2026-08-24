@@ -1,7 +1,7 @@
 # Guardrail de escrituras Jira (adaptado de `automation/jira/update-rules.md`)
 
 > Aplica a **toda** operación de `adapters/jira/client.mjs` que escriba en Jira:
-> `createStoryDraft`, `createDefect`. Sin excepción, sin importar qué skill la invoque.
+> `createStoryDraft`, `createDefect`, `addComment`. Sin excepción, sin importar qué skill la invoque.
 
 ## Secuencia obligatoria
 
@@ -13,7 +13,7 @@
    tiene que haber una confirmación real. El propio hecho de correr el comando CLI con argumentos
    reales cuenta como esa confirmación (mismo principio que `automation`), pero la skill que lo
    invoca debe haber mostrado el preview ANTES en la misma conversación.
-4. **Ejecutar** — recién ahí llamar a `createStoryDraft`/`createDefect`.
+4. **Ejecutar** — recién ahí llamar a `createStoryDraft`/`createDefect`/`addComment`.
 5. **Verificar** — confirmar que el issue se creó de verdad (`getIssue` del key devuelto), no
    asumir éxito solo porque no tiró excepción.
 6. **Loguear** — cada intento (éxito o error) ya queda en `adapters/jira/sync-log.ndjson`

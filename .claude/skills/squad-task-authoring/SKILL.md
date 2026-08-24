@@ -33,13 +33,16 @@ estructura para que la persona redacte bien y decida qué publicar.
    poder ver bien, ver la lección de `automation` sobre comentarios de Jira con imágenes
    descartadas por herramientas de extracción de texto).
 4. **Próximo paso**, si corresponde.
-5. Redactar el borrador y **mostrarlo completo a la persona** — la publicación en Jira la hace la
-   persona a mano, nunca este skill de forma autónoma (mismo principio que
+5. Redactar el borrador y **mostrarlo completo a la persona**. Si el adaptador `jira` está activo,
+   la persona puede pedir que se publique con `addComment(key, text)` — pero **solo tras preview +
+   OK explícito en esa misma conversación** (ver `adapters/jira/update-rules.md`); nunca de forma
+   autónoma. Si prefiere pegarlo a mano en Jira, eso también es válido (mismo principio que
    `docs/_templates/dev-hu-testing-note.prompt.md`).
 
 ## Reglas duras
 
-1. 🚫 **NUNCA publicar un comentario en Jira de forma autónoma** — solo redactar el borrador.
+1. 🚫 **NUNCA publicar un comentario en Jira sin preview + OK explícito previo** — `addComment`
+   existe, pero eso no cambia la disciplina: mostrar el borrador completo primero, siempre.
 2. 🚫 **NUNCA crear una subtarea sin preview + OK explícito** si se usa `createStoryDraft`.
 3. 🚫 **NUNCA dejar un comentario de cierre sin al menos "qué se hizo"** — un comentario que diga
    solo "listo" no cumple el estándar de este skill.

@@ -11,7 +11,7 @@
 - El adaptador `none` (activo hoy, Fase 1) implementa la interfaz como no-ops.
 - El adaptador `jira` (Fase 3) se completa cuando el gate de DoR necesite `checkReadiness` en vivo.
 
-## El contrato — operaciones (6 heredadas de `automation` + 3 nuevas de este proyecto)
+## El contrato — operaciones (6 heredadas de `automation` + 4 nuevas de este proyecto)
 
 | Operación | Entrada | Salida | Quién la usa | Fase |
 |---|---|---|---|---|
@@ -24,6 +24,7 @@
 | **`checkReadiness(id)`** *(nuevo)* | id de HU | `{ready: bool, missing: [criterios]}` | gate de DoR | 3 |
 | **`createStoryDraft(payload)`** *(nuevo)* | HU estructurada | id/borrador creado (con aprobación humana previa) | skill `hu-epic-feature-authoring` | 5 |
 | **`listEpicChildren(epicId)`** *(nuevo)* | id de épica | lista de HUs hijas | skill `knowledge-lookup` | 5 |
+| **`addComment(key, text)`** *(nuevo, 2026-08-24)* | key de issue existente, texto | `void` (lanza si falla) | skill `squad-task-authoring` | 5 |
 
 ## Reglas del contrato
 
