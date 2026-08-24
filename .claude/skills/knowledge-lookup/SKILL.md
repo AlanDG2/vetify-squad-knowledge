@@ -20,6 +20,7 @@ en vez de hacer que alguien lea `knowledge/` entero.
 | Un término del dominio (capitado, filecase, DoR, etc.) | `knowledge/glossary.md` |
 | Un gap o limitante ya conocido (para no "descubrirlo" de nuevo) | `knowledge/known-issues.md` |
 | Una decisión ya tomada y por qué (para no reabrir un debate viejo) | `knowledge/decision-log.md` |
+| Qué se trabajó en un sprint pasado, quién, y qué quedó pendiente | `knowledge/sprint-<nombre>.md` (ej. `sprint-2026-Q3-S4-Mascotas.md`) — snapshot al cierre, no el estado actual |
 | Qué se espera de un dev al terminar una HU | `docs/_templates/dev-hu-testing-note.prompt.md` |
 | Si una HU está lista para pasar a desarrollo | `core/dor/dor-core.md` + skill `hu-epic-feature-authoring` |
 
