@@ -22,6 +22,8 @@ en vez de hacer que alguien lea `knowledge/` entero.
 | Una decisión ya tomada y por qué (para no reabrir un debate viejo) | `knowledge/decision-log.md` |
 | Qué se trabajó en un sprint pasado, quién, y qué quedó pendiente | `knowledge/sprint-<nombre>.md` (ej. `sprint-2026-Q3-S4-Mascotas.md`) — snapshot al cierre, no el estado actual |
 | Contrato HTTP, catálogo de errores, env vars o seguridad de un servicio/repo puntual | `repos/00-indice.md` → el `.md` del servicio (19 repos relevados 2026-08-25) |
+| Qué bugs de producto ya se conocen, abiertos o resueltos | `knowledge/bugs-conocidos.md` — estados "último conocido", confirmar en vivo si importa la precisión |
+| Copy/textos/planes/precios de las landings públicas | `knowledge/contenido-institucional.md` |
 | Qué se espera de un dev al terminar una HU | `docs/_templates/dev-hu-testing-note.prompt.md` |
 | Si una HU está lista para pasar a desarrollo | `core/dor/dor-core.md` + skill `hu-epic-feature-authoring` |
 

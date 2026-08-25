@@ -34,17 +34,22 @@ compra directo — el beneficio viene integrado por un acuerdo con un tercero, e
 | Mariana Minutella | Business Owner |
 | Gadia Trenes | Business Expert |
 
-**Referentes adicionales**: Alexis Castellano (Consultor técnico Vetify) · Laura De Carli (Base de
-Datos) · Andres Vergani (IT) · Gerardo Sireix (Infra) · Lucía Cabaña (CDS) · Agustín Calcagno
-(Marketing) · Jonathan Peña (Salesforce) · Milagros Sce (Campañas) · Fatima Fernandez (Finanzas) ·
-Ariamis Cadenas (Calidad) · Melisa Lorea (Prestadores) · Leandro Segovia (Capital Humano) · Damián
-Franco (Core).
+**Referentes adicionales**: Alexis Castellano (Consultor técnico Vetify — es "Alex"/
+`acastellano@ikeasistencia.com.ar`, la cuenta QA real que se usa para Reintegros/Prestadores, no
+solo una cuenta de test) · Laura De Carli (Base de Datos) · Andres Vergani (IT) · Gerardo Sireix
+(Infra) · Lucía Cabaña (CDS) · Agustín Calcagno (Marketing) · Jonathan Peña (Salesforce) · Milagros
+Sce (Campañas) · Fatima Fernandez (Finanzas) · Ariamis Cadenas (Calidad) · Melisa Lorea
+(Prestadores) · Leandro Segovia (Capital Humano) · Damián Franco (Core).
 
 ## Convenciones de Jira del equipo
 
 **Flujo de estados** (5): `Tareas por hacer` → `En progreso` → `En validación` (dev mandó a QA) →
 `Pending Validation` (validado, esperando deploy) → `Hecho` (en Producción **y** cumple DoD — las
 dos condiciones a la vez).
+
+**Por qué un ticket queda "atascado" en `Pending Validation`**: no es un error ni un ticket mal
+cerrado — significa exactamente lo que dice, ya validado, con la subtarea "Deploy a Prod" todavía
+en Backlog. Confirmado como patrón real y recurrente, no una excepción.
 
 **Tipos de tarjeta** (4): Historia de usuario, Bug (interno), Incidente productivo (reportado por
 cliente en Prod), Tarea.
