@@ -92,3 +92,18 @@ reusó el patrón de `automation` donde aplicaba (skills, adaptador, gate, guard
 se descartó explícitamente todo lo que sumaba riesgo sin sumar valor proporcional (fork con tests,
 IA de dev publicando sola en Jira, archivo de changelog paralelo mantenido por devs). Próximo paso:
 adopción real por el squad, no más construcción de estructura.
+
+## 2026-08-25 - Se pushea a un remoto real (GitLab)
+
+**Decisión**: reabrir la decisión operativa "repo local únicamente" (ver arriba, 2026-08-21) —
+Alan decidió empezar a compartirlo con el squad. Se agregó el remoto
+`git@gitlab.com:alan-ike/vetify-squad-knowledge.git` y se pusheó `master` (commit `ac13ba6` en
+adelante, historial completo incluido — se confirmó antes que ningún `.env` real quedó nunca
+commiteado).
+
+**Contexto**: en paralelo se empezó a nutrir el conocimiento del squad (12/14 secciones desde
+`automation`, 50 skills de PM adaptadas de `phuryn/pm-skills`, resúmenes de sprint) y a repartir a
+un primer dev los 3 prompts de `docs/_templates/` (README denso, template de MR, nota de HU) — el
+push a GitLab es el paso natural una vez que hay contenido real para mostrar, no antes.
+
+**Reabrir si**: hace falta volver a un esquema solo-local (poco probable una vez compartido).
