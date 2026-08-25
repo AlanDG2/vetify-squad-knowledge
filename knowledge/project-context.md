@@ -60,16 +60,21 @@ de Definition of Ready).
 
 ## Arquitectura — repos y apps
 
-| Componente | Repo / referencia |
-|---|---|
-| E-commerce / landing institucional | `ike-asistencia/ike-bapi-vetify` · `ike-asistencia/ike-platform-vetify-institucional` |
-| Webapp frontend (Vetify WebApp) | `webapp-ike/ike-webapp` (Bitbucket) |
-| Webview / app mobile del tutor | `grupo-flux/webapp/ike-webapp-mobile` (GitLab) |
-| Backend / microservicios core | `webapp-ike/services-service` · `webapp-ike/brands-service` · `webapp-ike/users-service` · `webapp-ike/ike-service` (Bitbucket) |
-| Pet Services (mascotas/prestaciones/credenciales) | `grupo-ike-arg/webapp-mascotas/backend` (GitLab) |
-| App Prestadores (mobile nativa, Expo) | `grupo-ike-arg/webapp-mascotas/app-mobile` |
-| Webapp Prestadores (`qa.prestadores.ike.ar`) | `grupo-ike-arg/webapp-mascotas/webapp-proveedores-mascotas` + `backend-prestadores` |
-| Reintegros | `grupo-ike-arg/webapp-mascotas/reintegros-terraform` · `.../reintegros-backoffice` · `.../reintegros-backend` |
+| Componente | Repo / referencia | Nombre real del servicio (confirmado 2026-08-25, ver `repos/00-indice.md`) |
+|---|---|---|
+| E-commerce / landing institucional | `ike-asistencia/ike-bapi-vetify` · `ike-asistencia/ike-platform-vetify-institucional` | `web-backend` (BFF checkout, Express) + `web-frontend` (SPA Vite+React) |
+| Webapp frontend (Vetify WebApp) | `webapp-ike/ike-webapp` (Bitbucket) | `ike-app-autogestion-web` (Next.js multi-tenant) |
+| Webview / app mobile del tutor | `grupo-flux/webapp/ike-webapp-mobile` (GitLab) | — (no relevado en el pack de repos de 2026-08-25) |
+| Backend / microservicios core | `webapp-ike/services-service` · `webapp-ike/brands-service` · `webapp-ike/users-service` · `webapp-ike/ike-service` (Bitbucket) | `ike-bapi-autogestion-gateway` (Spring Cloud Gateway) · `ike-bapi-autogestion-servicios` (`services-service`) · `ike-sapi-core-brands`/`-usuarios`/`-vehiculos` (`brand`/`users`/`vehicle`-service) · `ike-xapi-autogestion-web` (`ike-service`, XAPI) · `ike-svc-notificaciones` (mail/push async) · `ike-fiera-upload-manager` (uploads — ⚠️ sin auth, ver `known-issues.md`) · `ike-svc-monitoreo-central` (librería, no es servicio) |
+| Pet Services (mascotas/prestaciones/credenciales) | `grupo-ike-arg/webapp-mascotas/backend` (GitLab) | `backend-mascotas` (FastAPI: turnos/videollamadas/slots — ⚠️ 3 endpoints sin auth, ver `known-issues.md`) |
+| App Prestadores (mobile nativa, Expo) | `grupo-ike-arg/webapp-mascotas/app-mobile` | — (no relevado en el pack de repos de 2026-08-25) |
+| Webapp Prestadores (`qa.prestadores.ike.ar`) | `grupo-ike-arg/webapp-mascotas/webapp-proveedores-mascotas` + `backend-prestadores` | `webapp-proveedores-mascotas` (SPA) + `backend-prestadores` (Django, TOTP/Auth0) |
+| Reintegros | `grupo-ike-arg/webapp-mascotas/reintegros-terraform` · `.../reintegros-backoffice` · `.../reintegros-backend` | `reintegros-backend` (Spring, contrato HTTP completo en `repos/reintegros-backend.md`) + `reintegros-backoffice` (Next.js, UI Calidad/Finanzas) |
+
+**Detalle técnico completo de cada servicio** (contrato HTTP con roles, catálogo de errores,
+variables de entorno reales, seguridad, local/deploy): `repos/00-indice.md` en la raíz de este
+repo — pack armado por un dev el 2026-08-25 corriendo el prompt de README denso
+(`docs/_templates/dev-repo-context-for-qa-general.prompt.md`) contra 19 repos reales.
 
 **No confundir App Prestadores con Webapp Prestadores**: son dos apps distintas — la App (mobile)
 recibe la notificación de videollamada agendada; la Webapp valida el token de atención presencial.
