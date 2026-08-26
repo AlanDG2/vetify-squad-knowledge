@@ -60,15 +60,16 @@
 - QA: `qa.vetify.com.ar/flux` · PROD: `vetify.com.ar/flux`
 - Estructura idéntica a OSDE Capitado (mismo formulario, mismo "Plan Esencial").
 
-### 🐛 Hallazgo de contenido — sigue sin reportar (relevado 2026-08-14, confirmado sin cambios 2026-08-25)
+### 🐛 Hallazgo de contenido — reportado como `IMAS-4430` (2026-08-25)
 
 Las respuestas del FAQ **no fueron adaptadas de OSDE a Flux**:
 - Categoría del FAQ dice "Alianza Vetify x OSDE" (debería decir "... x Flux").
 - Primera pregunta/respuesta: *"¿Qué es Vetify y por qué **OSDE** lo eligió como aliado...?"* en
   una página que se presenta como "Vetify x Flux".
 - Confirmado en **QA y PROD por igual** — no es drift de ambiente, es el mismo copy mal cargado en
-  ambos. **Pendiente**: nadie lo filó todavía como Defect — sigue como hallazgo suelto 11 días
-  después de encontrado.
+  ambos. Re-confirmado en vivo 2026-08-25 (11 días después del hallazgo original, sin cambios) y
+  reportado como [`IMAS-4430`](https://ikeasistencia-arg.atlassian.net/browse/IMAS-4430)
+  (ver `automation/docs/bugs/BUG-016-flux-faq-copy-osde-sin-adaptar.md`).
 
 ## 5. Apps logueadas — sin contenido institucional propio
 

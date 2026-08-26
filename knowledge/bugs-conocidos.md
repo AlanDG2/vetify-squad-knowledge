@@ -21,6 +21,7 @@
 | BUG-012 | `IMAS-4324` | App Android: íconos de la barra de estado invisibles sobre la landing institucional | Bajo | Backlog |
 | BUG-013 | `IMAS-4351` | Compra no asocia el plan si el DNI ya tiene cuenta existente | Medio | Sin HU padre, ver detalle |
 | BUG-015 | `IMAS-4354` | Rechazo directo de Calidad (Reintegros) falla — requiere `clCuenta` de Nexus | Medio-Alto | **En Progreso** (dev ya lo tiene, ver `system-knowledge.md` § Reintegros) |
+| BUG-016 | `IMAS-4430` | Landing Flux Capitado: FAQ con copy de OSDE sin adaptar a la marca | Bajo-Medio | Recién creado (2026-08-25/26), Backlog — ver `knowledge/contenido-institucional.md` |
 
 ## Resuelto
 
