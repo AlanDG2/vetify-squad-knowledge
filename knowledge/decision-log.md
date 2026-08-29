@@ -107,3 +107,46 @@ un primer dev los 3 prompts de `docs/_templates/` (README denso, template de MR,
 push a GitLab es el paso natural una vez que hay contenido real para mostrar, no antes.
 
 **Reabrir si**: hace falta volver a un esquema solo-local (poco probable una vez compartido).
+
+## 2026-08-28 - Sync de paridad manual: automation → squad-knowledge
+
+**Decisión**: a pedido explícito de Alan ("que estén a la par"), comparar todo el conocimiento
+nuevo acumulado en `automation` (varios días de trabajo sobre `IMAS-4356`, `IMAS-4408`, `IMAS-3610`
+y hallazgos de ambiente) contra este hub, y promover lo que faltara — usando
+`scripts/promote-knowledge.mjs` para las secciones de `system-knowledge.md` (reemplazo completo de
+sección por heading, igual que en la Fase 2) y edición manual directa para `known-issues.md`,
+`bugs-conocidos.md` y `sprint-2026-Q3-S5-Mascotas.md` (estos 3 no tienen script propio — se
+mantienen como refresh de documento completo, no por sección con cabecera de procedencia; se
+logueó igual cada cambio en `promotion-log.ndjson` a mano, para no romper la trazabilidad).
+
+**Qué se promovió**: 6 llamadas al script (`Usuarios de prueba compartidos`, `Hallazgos
+históricos`, `Estado oficial de automatización`, `Módulo: Vetify WebApp`, `Módulo: Vetify B2C +
+OSDE Adquirente`, `Integración: backend Quantum`) + `BUG-017`-`BUG-023` en `bugs-conocidos.md` +
+`IMP-014`/`IMAS-4464` y el gotcha de `customfield_11620` en `known-issues.md` + refresco de los
+estados stale de `IMAS-4356`/`IMAS-4408`/`IMAS-3610` en el sprint activo. Detalle completo en
+`current-state.md` § Sync de paridad 2026-08-28.
+
+**Qué se dejó afuera a propósito**: el detalle del scaffold mobile Appium/WebdriverIO
+(`IMP-008`-`IMP-011` de `automation`, incl. el hallazgo de chromedriver/WebView debug bridge) y la
+sección "Hallazgos / gaps detectados durante el estudio de tests" — ambos son detalle de tooling
+QA interno de `automation`, no conocimiento accionable para PO/PM/dev. Criterio aplicado: promover
+solo lo que un lector no-QA del squad necesitaría para tomar una decisión o entender el producto,
+no todo lo que `automation` documenta para su propio uso interno.
+
+**Reabrir si**: se decide que el scaffold mobile SÍ debería tener visibilidad squad-wide (por
+ejemplo, si dev necesita saber por qué la automatización mobile no cubre celular físico todavía) —
+en ese momento, promover `IMP-008`-`IMP-011` como una sección nueva de `known-issues.md`.
+
+## 2026-08-28 (más tarde el mismo día) — 2do sync de paridad, tras el re-intake completo de la épica Reintegros
+
+A pedido de Alan ("compará conocimiento con el otro repo para llevarlo a la par"), 2do sync del mismo día — el anterior (ver entrada de arriba) fue antes de que QA hiciera un re-intake exhaustivo de la épica `IMAS-4101` en `automation` (analizó desde cero las 4 fases B/C/D/E + el bug insignia `IMAS-4354`, más un pull completo del sprint activo).
+
+**Qué se promovió**:
+- `Módulo: Reintegros` completo (`promote-knowledge.mjs`, reemplazo por sección) — ahora trae el contrato técnico real de las Fases B (`IMAS-4092`), C (`IMAS-4103`) y D (`IMAS-4104`), nunca antes documentado con este nivel de detalle (endpoints reales, catálogo de 7 estados `refund`, criterios de aceptación citados textual de cada ticket). Incluye el hallazgo más importante del día: `IMAS-4354`/BUG-015 fue retesteado 2 veces (sigue roto, contradice una captura "204" de dev) y su causa raíz quedó aislada en vivo — es 100% de `reintegros-backend`, confirmado llamando directo a la API de Nexus (Core acepta el rechazo sin problema).
+- `bugs-conocidos.md`: `BUG-007` (ahora En Progreso con Mariana, reconfirmado 3 veces más), `BUG-015` (Pending Validation, causa raíz confirmada), `BUG-023`/`IMAS-4464` (ahora Cancelado, sin explicación).
+- `known-issues.md`: actualización de `IMP-014` (Cancelado) + un 2do modo de falla del gotcha `customfield_11620` (esta vez el problema fue que el CLI de `automation` trunca descripciones largas en la salida de terminal, no que el campo esté escondido — encontrado porque Alan cuestionó una conclusión apresurada de "no hay nada que probar").
+- `sprint-2026-Q3-S5-Mascotas.md`: refresh completo a día 5 (235 issues/24 top-level, vs. 32/155 del día 1) — 6 tickets nuevos de Reintegros (`IMAS-4471`-`4476`), incluido uno (`IMAS-4472`) que **contradice un supuesto ya documentado** ("ARCA funciona en Producción, no reportar salvo que falle ahí también" — ahora hay un ticket diciendo que sí falla en Producción, sin confirmar de forma independiente todavía).
+
+**Qué se dejó afuera**: igual criterio que siempre — nada nuevo de tooling QA interno que promover esta vez, todo lo nuevo de `automation` era conocimiento de producto/proceso legítimamente squad-wide.
+
+**No se commiteó a git en este pase** — Alan no pidió explícitamente commitear/pushear, y el sync anterior del mismo día (ver entrada de arriba) también quedó sin commitear. Quedan 3 syncs de trabajo acumulados sin commit; confirmar con Alan antes de commitear/pushear si se retoma esto.
