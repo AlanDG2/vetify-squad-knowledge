@@ -15,15 +15,15 @@ function HomepageHeader() {
           Todo lo que el equipo necesita saber sobre Vetify
         </Heading>
         <p className={styles.subtitle}>
-          Qué es el producto, cómo es el negocio, quiénes son nuestros clientes y quién es quién
-          en el equipo — en un solo lugar, en criollo.
+          Qué es el producto, cómo es el negocio, y todo lo que necesitás para sumarte al equipo
+          — en un solo lugar, en criollo.
         </p>
         <div className={styles.buttons}>
           <Link className="button button--primary button--lg" to="/que-es-vetify">
             Empezar por "Qué es Vetify"
           </Link>
-          <Link className="button button--secondary button--lg" to="/organigrama">
-            Ver el equipo
+          <Link className="button button--secondary button--lg" to="/onboarding/bienvenida">
+            Guía de onboarding
           </Link>
         </div>
       </div>
@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <Layout
       title="Vetify"
-      description="Guía del squad Vetify: qué es el producto, cómo funciona el negocio y quién es quién en el equipo.">
+      description="Guía del squad Vetify: qué es el producto, cómo funciona el negocio, y una guía de onboarding para arrancar a trabajar.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

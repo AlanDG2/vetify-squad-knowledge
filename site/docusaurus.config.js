@@ -86,11 +86,6 @@ const config = {
             position: 'left',
             label: 'Onboarding',
           },
-          {
-            to: '/organigrama',
-            label: 'El equipo',
-            position: 'left',
-          },
         ],
       },
       footer: {
@@ -110,12 +105,6 @@ const config = {
             items: [
               {label: 'Empezar acá', to: '/onboarding/bienvenida'},
               {label: 'Primeros pasos', to: '/onboarding/primeros-pasos'},
-            ],
-          },
-          {
-            title: 'El equipo',
-            items: [
-              {label: 'Organigrama', to: '/organigrama'},
             ],
           },
         ],
