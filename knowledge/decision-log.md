@@ -150,3 +150,20 @@ A pedido de Alan ("compará conocimiento con el otro repo para llevarlo a la par
 **Qué se dejó afuera**: igual criterio que siempre — nada nuevo de tooling QA interno que promover esta vez, todo lo nuevo de `automation` era conocimiento de producto/proceso legítimamente squad-wide.
 
 **No se commiteó a git en este pase** — Alan no pidió explícitamente commitear/pushear, y el sync anterior del mismo día (ver entrada de arriba) también quedó sin commitear. Quedan 3 syncs de trabajo acumulados sin commit; confirmar con Alan antes de commitear/pushear si se retoma esto.
+
+## 2026-09-19 — 4to sync de paridad, gap de 3 semanas (34 commits + sesión sin commitear)
+
+A pedido de Alan ("quiero que el repo de automatización y el repo de conocimiento del squad estén igualados en conocimientos, valida qué le falta al otro repo, actualízalo"). Desde el 3er sync (2026-08-28, commit `28ad700` en `automation`) habían pasado ~34 commits más el trabajo sin commitear de la sesión activa (IMAS-4644, IMAS-4657, IMAS-4471, IMAS-4310, IMAS-4546) — el gap más grande entre 2 syncs hasta ahora.
+
+**Proceso**: se delegó la comparación (no la escritura) a un agente de investigación, con instrucción explícita de comparar `automation` completo (commits + working tree) contra `knowledge/*.md` y reportar gaps organizados por archivo destino, excluyendo mecánica QA interna ya establecida como no-promovible. El reporte volvió con 18 gaps concretos, priorizados.
+
+**Qué se promovió** (aplicado a mano, no vía `promote-knowledge.mjs` salvo donde el heading coincidía exacto con la fuente — la mayoría del contenido nuevo de `automation` vive en `.tests.md`/`docs/impedimentos-bloqueos.md`/`docs/bugs/*.md`, no en secciones `##` de `conocimiento-sistema.md`):
+- `system-knowledge.md`: límite de videollamadas por plan (`IMAS-4546`) — pasó de "todavía no implementado" a feature real, probada y automatizada; banner Cooper/menú "Beneficios" actualizado con `IMAS-4435`; migración de dominio de Quantum (`qa-quantum.ike.ar`); Engage como sistema central único de afiliados (`IMP-030`); estado real de ARCA (`BUG-031`); confirmación de `IMAS-4310` (edición desde confirmación de videollamada).
+- `bugs-conocidos.md`: reescrito para pasar de 23 a 37+ bugs trackeados — `BUG-024` a `BUG-037` más 2 Defects nuevos sin `.md` local (`IMAS-4731`/`IMAS-4743`), reclasificación de varios como "no son bugs reales"/"reclasificados como impedimento de ambiente", `BUG-007` movido a Resuelto, `IMAS-4198`/`4199` marcados resueltos.
+- `known-issues.md`: reescrita la entrada de `IMP-014` para reflejar que el síntoma **recurrió** como `IMP-017` bloqueo 1 (sigue abierto, mucho más transversal de lo que parecía) — el sync anterior lo había dejado como "resuelto" sin más seguimiento. Sumado `IMP-024` (3 ítems del roadmap que no existen en el producto) e `IMP-029` (checkout bloquea tras ~2 interacciones seguidas). Documentado el fix real de `customfield_11620` (arreglado en código 2026-08-31, ya no hace falta el workaround manual).
+- `contenido-institucional.md`: aumento de precios ~6% (`IMAS-4644`) y cuadros de cobertura actualizados (`IMAS-4657`) en las 3 secciones con ambiente QA, más un **5to canal de venta nunca documentado** (Landing PAS, solo PROD, sin QA, acceso vía productor de seguros).
+- `current-state.md`: resumen ejecutivo del sync con los 3 hallazgos más importantes.
+
+**Qué quedó explícitamente pendiente, no resuelto en este pase**: `sprint-2026-Q3-S5-Mascotas.md` sigue mostrando el sprint que cerró hace 3 semanas — refrescarlo requiere un pull vivo de Jira (no solo comparar contra `automation`), no se hizo en este pase. Señalado en `current-state.md` para que no se cite como "sprint activo" sin confirmar primero.
+
+**No se commiteó a git en este pase** — mismo criterio que syncs anteriores, no pedido explícitamente.

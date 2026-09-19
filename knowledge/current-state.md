@@ -44,6 +44,24 @@
   refrescó a día 5 (235 issues/24 top-level, 6 bugs nuevos de Reintegros: `IMAS-4471`-`4476`).
 - **2 hallazgos sin confirmar con dev** (ver `known-issues.md`): reuso del código de error
   `BUS-005` para 2 causas distintas, y 3 puntos sin autenticación real según el propio código.
+- **4to sync de paridad, 2026-09-19** (3 semanas de gap acumulado en `automation`, ~34 commits +
+  una sesión de varios días sin commitear) — los 3 hallazgos más importantes: (1) el **límite de
+  videollamadas por plan** (`IMAS-4546`), que en el sync anterior figuraba "todavía no
+  implementado", ya está en producción-QA, probado y **automatizado** (`videocall.spec.ts` TS-06)
+  — contador de cupo, 2 modales de bloqueo distintos, regla de cancelación, aislamiento por
+  mascota; (2) **migración de dominio del backend Quantum** (`qa-quantum.ike.ar`, no
+  `qa.vetify.com.ar`) — cualquiera integrando con la URL vieja documentada antes falla; (3)
+  **aumento de precios ~6% y cuadros de cobertura actualizados el 16-sep-2026** (`IMAS-4644`/
+  `IMAS-4657`), con 2 Defects nuevos de contenido desactualizado (`IMAS-4731`/`IMAS-4743`) y un
+  **5to canal de venta no documentado hasta ahora** (Landing PAS, solo PROD, sin QA). También:
+  `bugs-conocidos.md` pasó de 23 a 37+ bugs trackeados (varios cerrados/reclasificados entre
+  medio, ver ese archivo), `known-issues.md` sumó `IMP-024`/`IMP-029` y reforzó el estado real del
+  impedimento de `category/overview` (recurrió como `IMP-017`, sigue abierto pese a que la
+  primera versión — `IMP-014` — se había dado por resuelta). **`sprint-2026-Q3-S5-Mascotas.md`
+  NO se refrescó en este sync** — quedó **3 semanas desactualizado** respecto al 19/09 real; antes
+  de citarlo como "sprint activo", confirmar en Jira si sigue siendo así o si ya hay un sprint
+  nuevo (no se trajo automáticamente porque requiere pull de Jira, no solo comparar contra
+  `automation`).
 - **Regla de evidencia**: no afirmar que algo "ya está" en este repo sin haber corrido
   `node core/validate/validate-control-plane.mjs` o leído el archivo real — igual que en
   `automation`, no asumir desde memoria de una sesión vieja.

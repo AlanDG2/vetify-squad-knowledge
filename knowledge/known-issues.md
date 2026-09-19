@@ -34,22 +34,23 @@
     el propio código como "temporal", que saltea la autenticación de reintegros
     (`repos/ike-app-autogestion-web.md`).
 
-- **Servicios intermitentes `500` en `category/overview` y `plans/engage/{dni}` (Vetify WebApp,
-  QA)** — confirmado 2026-08-28 vía captura de red en vivo (Playwright MCP), reportado en Jira
-  como `IMAS-4464` (`IMP-014` en `automation/docs/impedimentos-bloqueos.md`), linkeado "Blocks" a
-  `IMAS-4356`. **Por qué importa más allá de un bug puntual**: estos 2 endpoints fallando de forma
-  intermitente ya generaron 2 síntomas de UI que en un primer momento parecían bugs de producto
-  distintos — el banner de beneficios de Home cae a "Vetify PLUS" en vez de "Cooper" cuando falla
-  `category/overview`, y "Planes y coberturas" muestra "No hay planes por el momento" (para una
-  cuenta con plan real) cuando falla `plans/engage/{dni}`. También se vio `notifications` con
-  `500` la misma sesión. **Antes de reportar cualquier bug nuevo de Home/menú/planes en Vetify
-  WebApp QA, descartar primero que no sea este mismo impedimento** — ver
-  `system-knowledge.md` § Vetify WebApp (banner Cooper) para el detalle completo.
-  **Actualización 2026-08-28 (pull de sprint más tarde el mismo día)**: `IMAS-4464` pasó a
-  **Cancelado** en Jira (asignado a juan cruz triventi), sin comentarios que expliquen el motivo —
-  coincide con que dejó de reproducir en el retest de la tarde, pero al cerrarse como "Cancelado"
-  y no "Hecho"/confirmado, no queda del todo claro si dev llegó a la misma conclusión o si se
-  cerró sin más contexto.
+- **Servicios intermitentes `500`/timeout en `category/overview`, `my-products`, `users/me` y
+  `validation/policy` (Vetify WebApp, QA) — impedimento recurrente, todavía ABIERTO** (`IMP-017`
+  bloqueo 1 en `automation/docs/impedimentos-bloqueos.md`, reconfirmado por última vez
+  2026-09-17). Historia completa: el primer avistamiento (`IMAS-4464`, `IMP-014`) se dio por
+  **Resuelto/Cancelado 2026-09-10** — el backend volvió a responder 200 de forma estable y Alan
+  confirmó que Jira lo cerró por ser un problema de ambiente, no de producto. **Pero el mismo
+  síntoma de fondo recurrió** (`IMP-017` bloqueo 1, desde 2026-09-01) y resultó ser mucho más
+  transversal de lo que sugería el nombre original: rompe el arranque básico de la webapp
+  (`category/overview`/`my-products`/`users/me`) para cuentas **fresh recién activadas y también
+  cuentas pooled con plan real**, y además afecta `validation/policy` (activación de cuenta nueva,
+  502). Reconfirmado 5+ veces entre 2026-09-04 y 2026-09-17, más recientemente aislado a cuentas
+  OSDE Adquirente 100% fresh creadas por API (mientras cuentas pooled ya existentes no tienen
+  problema el mismo día) — sugiere que es intermitente/por-cuenta, no un outage total. **Antes de
+  reportar cualquier bug nuevo de Home/menú/planes/activación en Vetify WebApp QA, descartar
+  primero que no sea este mismo impedimento.** Ver `bugs-conocidos.md` (`BUG-023`/`IMAS-4464`,
+  cerrado por este motivo) y `system-knowledge.md` § Vetify WebApp para el detalle de los síntomas
+  de UI (banner Cooper incorrecto, "No hay planes por el momento").
 
 - **Issues Jira de tipo "Tarea" pueden guardar la descripción real en un custom field
   (`customfield_11620`), no en el campo `description` estándar** — descubierto 2026-08-27/28
@@ -69,4 +70,25 @@
   encontró porque Alan cuestionó directamente "pero no hay nada que probar?" después de una
   conclusión apresurada de "sin contrato". **Regla combinada**: si un ticket de Jira parece no
   tener contrato real, no confiar en la salida del CLI en ningún sentido — pedir el campo crudo
-  vía API antes de concluir "no hay nada que probar acá".
+  vía API antes de concluir "no hay nada que probar acá". **Arreglado en código 2026-08-31**: el
+  CLI (`jira-client.mjs get <KEY>`) ahora escanea automáticamente todos los `customfield_*` con
+  contenido real en vez de mostrar solo `description` — cubre ambos modos de falla de una vez, ya
+  no hace falta pedir el campo crudo a mano.
+
+- **3 ítems del roadmap de QA no son funcionalidades reales del producto** (`IMP-024`,
+  confirmado en vivo 2026-09-10): "Cambio/selección de mascota" (no existe un concepto de
+  "mascota activa" a nivel de sesión — cada pantalla lista todas las mascotas como tarjetas,
+  salvo dentro del flujo puntual de Videollamada, que tiene su propio selector), "Detalle de
+  veterinaria" y "Atención de Red" (no existe ese ítem en ningún menú ni pantalla real,
+  confirmado contra el menú lateral completo — ver `system-knowledge.md` § Vetify WebApp).
+  Relevante para Producto/PM: si alguien sigue trackeando estos 3 como "pendiente de
+  automatizar", en realidad es una pregunta de alcance sin responder, no un gap técnico.
+
+- **Checkout institucional de Vetify B2C bloquea tras ~2 interacciones reales seguidas en la
+  misma sesión** (`IMP-029`, nuevo 2026-09-10): aplicar cupón + completar datos 2 veces seguidas
+  dentro de la misma sesión de navegador deja la landing en blanco (solo header + reCAPTCHA, sin
+  planes) — reproducido 2 veces con métodos distintos, mismo síntoma exacto. Parece un mecanismo
+  de anti-bot/rate-limiting del checkout mismo, no un bug de automatización. **Relevante para
+  cualquier prueba de carga, demo con múltiples compras seguidas, o campaña de marketing con
+  tráfico repetido desde la misma sesión/IP** — Oscar Tello confirmó parcialmente que "no
+  deberías poder hacer más de 2 compras/interacciones con el mismo cliente" en QA.
