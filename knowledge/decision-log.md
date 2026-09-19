@@ -167,3 +167,9 @@ A pedido de Alan ("quiero que el repo de automatización y el repo de conocimien
 **Qué quedó explícitamente pendiente, no resuelto en este pase**: `sprint-2026-Q3-S5-Mascotas.md` sigue mostrando el sprint que cerró hace 3 semanas — refrescarlo requiere un pull vivo de Jira (no solo comparar contra `automation`), no se hizo en este pase. Señalado en `current-state.md` para que no se cite como "sprint activo" sin confirmar primero.
 
 **No se commiteó a git en este pase** — mismo criterio que syncs anteriores, no pedido explícitamente.
+
+## 2026-09-19 — Se trajeron `mermaid-diagrams` y `theme-factory` de `davila7/claude-code-templates`
+
+A raíz de la conversación sobre armar una página propia del proyecto (documentación + organigrama, sitio estático), Alan preguntó qué podía servir del catálogo de skills de `aitmpl.com`. Se investigaron ~20 candidatas de diseño/frontend/backend, se validaron contra lo que ya existe acá y en `automation` para evitar duplicar o meter ruido, y se trajeron solo 2: `mermaid-diagrams` (diagramas versionables en texto — útil para el organigrama/arquitectura de la futura página) y `theme-factory` (10 temas de color/tipografía preseteados, para que la página no se vea genérica sin necesitar diseño de cero). Detalle completo de la evaluación (qué se trajo, qué se descartó y por qué, atribución/licencias) en `.claude/skills/THIRD-PARTY-NOTICES.md`.
+
+**No se trajo nada a `automation`** en este pase — las 3 candidatas del lado QA/testing (`senior-qa`, `playwright-e2e-builder`, `e2e-testing-patterns`) resultaron genéricas o pensadas para setear Playwright desde cero, sin aportar nada por encima del framework QA ya maduro y a medida que tiene ese repo.

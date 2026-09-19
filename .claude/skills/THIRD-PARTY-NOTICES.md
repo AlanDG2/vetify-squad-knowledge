@@ -65,3 +65,33 @@ formato, se pueden traer igual que las demás.
 Estas skills cargan on-demand igual que las propias del proyecto (solo su `description` se
 precarga). Ninguna requiere instalación adicional — son markdown puro, sin scripts ni
 dependencias.
+
+---
+
+## 2026-09-19 — `mermaid-diagrams` y `theme-factory`, de `davila7/claude-code-templates`
+
+A pedido de Alan, evaluadas tras explorar el catálogo de skills de [aitmpl.com](https://www.aitmpl.com/skills/)
+(la vidriera web del repo [`davila7/claude-code-templates`](https://github.com/davila7/claude-code-templates),
+300+ skills de comunidad) pensando en la idea de armar una página propia del proyecto (documentación +
+organigrama, servida como sitio estático). Se trajeron **2 de las ~20 candidatas revisadas**:
+
+- **`mermaid-diagrams`** (MIT, repo raíz — sin `LICENSE.txt` propio): guía completa de diagramas Mermaid
+  (clases, secuencia, flowcharts, ERD, C4, estados, git graphs, gantt) — texto versionable junto al
+  markdown, directamente aplicable para el organigrama y los diagramas de arquitectura de la futura
+  página. 6 archivos de referencia + `README.md`, sin dependencias de código.
+- **`theme-factory`** (Apache 2.0, `LICENSE.txt` propio incluido): 10 temas de color/tipografía
+  preseteados (hex codes + font pairings) para aplicar a cualquier artifact/página sin tener que
+  diseñar de cero. Se omitió `theme-showcase.pdf` del origen (binario, preview visual) — los 10
+  `.md` de `themes/` ya traen la especificación completa en texto, alcanza para aplicar el tema sin
+  necesitar el PDF.
+
+**Evaluadas y descartadas** (no se trajeron, mismo criterio de "no duplicar algo ya mejor resuelto
+acá" del resto de este archivo): `senior-qa`, `playwright-e2e-builder`, `e2e-testing-patterns` — las
+3 del lado QA/testing de ese mismo catálogo. Contenido genérico/boilerplate (`senior-qa` asume stack
+React/Next/Node con Docker/K8s, scripts Python de scaffolding sin sustancia real) o pensado para
+**setear Playwright desde cero** en un proyecto que todavía no lo tiene (`playwright-e2e-builder`,
+`e2e-testing-patterns`) — este proyecto hermano (`automation`) ya tiene un framework Playwright
+maduro y hecho a medida (POMs de 3 niveles, pool de usuarios, convenciones `TS-XX`/`TC-XX`, 10
+skills QA propias) muy por encima de lo genérico que ofrecen esas 3. Ninguna aportaba algo que no
+estuviera ya mejor resuelto — quedó documentado acá en vez de en `automation` porque no se copió
+nada de ahí.
