@@ -67,6 +67,11 @@ const config = {
             label: 'Guía',
           },
           {
+            to: '/onboarding/bienvenida',
+            label: 'Onboarding',
+            position: 'left',
+          },
+          {
             to: '/organigrama',
             label: 'El equipo',
             position: 'left',
@@ -83,6 +88,13 @@ const config = {
               {label: 'Tipos de clientes', to: '/tipos-de-clientes'},
               {label: 'Los planes', to: '/los-planes'},
               {label: 'Reintegros', to: '/reintegros'},
+            ],
+          },
+          {
+            title: 'Onboarding',
+            items: [
+              {label: 'Empezar acá', to: '/onboarding/bienvenida'},
+              {label: 'Primeros pasos', to: '/onboarding/primeros-pasos'},
             ],
           },
           {
