@@ -1,50 +1,42 @@
-import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Conocimiento del producto',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Módulos, reglas de negocio, arquitectura e impedimentos activos de Vetify —
-        actualizado a la par de <code>vetify-automation</code>.
-      </>
-    ),
+    title: 'Qué es Vetify',
+    icon: '🐾',
+    to: '/que-es-vetify',
+    description: 'El producto, qué incluye y los 4 caminos por los que alguien termina siendo cliente.',
   },
   {
-    title: 'Quién es quién',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Organigrama del squad y referentes de cada equipo, para saber a quién
-        preguntar antes de escalar algo.
-      </>
-    ),
+    title: 'Tipos de clientes',
+    icon: '🧭',
+    to: '/tipos-de-clientes',
+    description: 'B2C, OSDE Adquirente, OSDE Capitado, Flux Capitado — qué cambia entre uno y otro.',
   },
   {
-    title: 'Arquitectura real',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Contrato HTTP, catálogo de errores y variables de entorno de los 19 repos
-        reales del squad, de primera mano.
-      </>
-    ),
+    title: 'Los planes',
+    icon: '📋',
+    to: '/los-planes',
+    description: 'De Emergencias a Premium: qué suma cada nivel, explicado sin vueltas.',
+  },
+  {
+    title: 'Reintegros y Nexus',
+    icon: '💳',
+    to: '/reintegros',
+    description: 'Cómo se pide un reintegro, quién lo revisa, y qué resolvió Nexus por dentro.',
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({title, icon, to, description}) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
+    <div className="col col--6 margin-bottom--lg">
+      <Link to={to} className={styles.featureCard}>
+        <span className={styles.featureIcon}>{icon}</span>
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
-      </div>
+      </Link>
     </div>
   );
 }

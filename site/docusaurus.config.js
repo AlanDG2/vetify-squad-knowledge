@@ -3,8 +3,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Vetify Squad Knowledge',
-  tagline: 'Conocimiento compartido del squad Vetify + Iké Asistencia',
+  title: 'Vetify',
+  tagline: 'Todo lo que el squad necesita saber sobre el producto',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -17,10 +17,6 @@ const config = {
   organizationName: 'AlanDG2',
   projectName: 'vetify-squad-knowledge',
 
-  // El contenido fuente (knowledge/*.md) tiene links relativos hacia el repo hermano
-  // `vetify-automation/automation` (ej. `../vetify-automation/automation/docs/...`) que no
-  // resuelven como página de este sitio a propósito -- son referencias de texto a otro repo, no
-  // errores. 'warn' en vez de 'throw' para que esos no rompan el build.
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   onBrokenAnchors: 'warn',
@@ -30,17 +26,22 @@ const config = {
     locales: ['es'],
   },
 
+  stylesheets: [
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap',
+      type: 'text/css',
+    },
+  ],
+
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          id: 'knowledge',
-          path: '../knowledge',
+          path: 'content',
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/AlanDG2/vetify-squad-knowledge/tree/main/knowledge/',
         },
         blog: false,
         theme: {
@@ -50,26 +51,6 @@ const config = {
     ],
   ],
 
-  plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      /** @type {import('@docusaurus/plugin-content-docs').Options} */
-      ({
-        id: 'repos',
-        path: '../repos',
-        routeBasePath: '/repos',
-        sidebarPath: './sidebarsRepos.js',
-        editUrl: 'https://github.com/AlanDG2/vetify-squad-knowledge/tree/main/repos/',
-      }),
-    ],
-  ],
-
-  themes: ['@docusaurus/theme-mermaid'],
-  markdown: {
-    format: 'md',
-    mermaid: true,
-  },
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -77,35 +58,18 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'Vetify Squad Knowledge',
-        logo: {
-          alt: 'Vetify Squad Knowledge',
-          src: 'img/logo.svg',
-        },
+        title: 'Vetify',
         items: [
           {
             type: 'docSidebar',
-            docsPluginId: 'knowledge',
-            sidebarId: 'knowledgeSidebar',
+            sidebarId: 'contentSidebar',
             position: 'left',
-            label: 'Conocimiento',
+            label: 'Guía',
           },
           {
-            type: 'docSidebar',
-            docsPluginId: 'repos',
-            sidebarId: 'reposSidebar',
+            to: '/organigrama',
+            label: 'El equipo',
             position: 'left',
-            label: 'Repos y arquitectura',
-          },
-          {
-            to: '/organigrama-borrador',
-            label: 'Organigrama (borrador)',
-            position: 'left',
-          },
-          {
-            href: 'https://github.com/AlanDG2/vetify-squad-knowledge',
-            label: 'GitHub',
-            position: 'right',
           },
         ],
       },
@@ -113,29 +77,22 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Conocimiento',
+            title: 'La guía',
             items: [
-              {label: 'Estado actual', to: '/current-state'},
-              {label: 'Conocimiento del sistema', to: '/system-knowledge'},
-              {label: 'Issues conocidos', to: '/known-issues'},
-              {label: 'Bugs conocidos', to: '/bugs-conocidos'},
+              {label: 'Qué es Vetify', to: '/que-es-vetify'},
+              {label: 'Tipos de clientes', to: '/tipos-de-clientes'},
+              {label: 'Los planes', to: '/los-planes'},
+              {label: 'Reintegros', to: '/reintegros'},
             ],
           },
           {
-            title: 'Proyecto',
+            title: 'El equipo',
             items: [
-              {label: 'Organigrama (borrador)', to: '/organigrama-borrador'},
-              {label: 'Repos y arquitectura', to: '/repos/indice'},
-            ],
-          },
-          {
-            title: 'Repos',
-            items: [
-              {label: 'vetify-squad-knowledge', href: 'https://github.com/AlanDG2/vetify-squad-knowledge'},
+              {label: 'Organigrama', to: '/organigrama'},
             ],
           },
         ],
-        copyright: `Iké Asistencia — Vetify Squad Knowledge. Generado ${new Date().getFullYear()}.`,
+        copyright: `Squad Vetify — Iké Asistencia`,
       },
       prism: {
         theme: prismThemes.github,
