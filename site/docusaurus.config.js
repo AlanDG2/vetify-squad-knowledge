@@ -51,6 +51,19 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      ({
+        id: 'onboarding',
+        path: 'onboarding-content',
+        routeBasePath: '/onboarding',
+        sidebarPath: './sidebarsOnboarding.js',
+      }),
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -67,9 +80,11 @@ const config = {
             label: 'Guía',
           },
           {
-            to: '/onboarding/bienvenida',
-            label: 'Onboarding',
+            type: 'docSidebar',
+            docsPluginId: 'onboarding',
+            sidebarId: 'onboardingSidebar',
             position: 'left',
+            label: 'Onboarding',
           },
           {
             to: '/organigrama',
