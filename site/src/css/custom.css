@@ -1,0 +1,30 @@
+/**
+ * Paleta: tema "Tech Innovation" de la skill theme-factory
+ * (.claude/skills/theme-factory/themes/tech-innovation.md) — Electric Blue #0066ff / Neon Cyan
+ * #00ffff / Dark Gray #1e1e1e / White #ffffff.
+ */
+
+:root {
+  --ifm-color-primary: #0066ff;
+  --ifm-color-primary-dark: #0052cc;
+  --ifm-color-primary-darker: #004db3;
+  --ifm-color-primary-darkest: #003d8f;
+  --ifm-color-primary-light: #3385ff;
+  --ifm-color-primary-lighter: #4d94ff;
+  --ifm-color-primary-lightest: #80b3ff;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 102, 255, 0.1);
+}
+
+/* Modo oscuro: cyan neón sobre gris oscuro, paleta más suave para lectura larga. */
+[data-theme='dark'] {
+  --ifm-color-primary: #22d3d3;
+  --ifm-color-primary-dark: #1cb8b8;
+  --ifm-color-primary-darker: #1aa8a8;
+  --ifm-color-primary-darkest: #158a8a;
+  --ifm-color-primary-light: #3fdcdc;
+  --ifm-color-primary-lighter: #52e0e0;
+  --ifm-color-primary-lightest: #85e9e9;
+  --ifm-background-color: #1e1e1e;
+  --docusaurus-highlighted-code-line-bg: rgba(34, 211, 211, 0.15);
+}
